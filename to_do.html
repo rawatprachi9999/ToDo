@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1><b>Things To Do</b></h1>
+    
+        <div class="input-container">
+            <input type="text" id="taskInput" placeholder="Add Task here...">
+            <button class="add" onclick="addTask()">Add</button>
+        </div>
+        <ul id="taskList"></ul>
+        <div id="taskCount">Total Tasks: 0 | Completed: 0 | Not Completed: 0</div>
+    </div>
+
+    <script>
+        function addTask() {
+            var taskInput = document.getElementById('taskInput');
+            var taskName = taskInput.value.trim();
+            if (taskName === '') {
+                return;
+            }
+
+            var taskList = document.getElementById('taskList');
+
+            var li = document.createElement('li');
+
+            var checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.className = 'task-checkbox';
+            checkbox.onclick = function() {
+                completeTask(li);
+            };
+
+            var span = document.createElement('span');
+            span.textContent = taskName;
+
+            var editButton = document.createElement('button');
+            editButton.textContent = 'Edit';
+            editButton.className = 'edit';
+            editButton.onclick = function() {
+                editTask(span);
+            };
+
+            var removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove✖️';
+            removeButton.className = 'remove';
+            removeButton.onclick = function() {
+                removeTask(li);
+            };
+
+            li.appendChild(checkbox);
+            li.appendChild(span);
+            li.appendChild(editButton);
+            li.appendChild(removeButton);
+            taskList.appendChild(li);
+
+            taskInput.value = '';
+
+            updateTaskCount();
+        }
+
+        function updateTaskCount() {
+            var taskList = document.getElementById('taskList');
+            var totalTasks = taskList.children.length;
+            var completedTasks = taskList.getElementsByClassName('completed').length;
+            var notCompletedTasks = totalTasks - completedTasks;
+            document.getElementById('taskCount').textContent = 
+                'Total Tasks: ' + totalTasks + 
+                ' | Completed: ' + completedTasks + 
+                ' | Not Completed: ' + notCompletedTasks;
+        }
+
+        function editTask(span) {
+            var li = span.parentElement;
+            // Remove any existing input and save button
+            var existingInput = li.querySelector('input.editable');
+            var existingSaveButton = li.querySelector('button.save');
+            if (existingInput && existingSaveButton) {
+                existingInput.remove();
+                existingSaveButton.remove();
+            }
+
+            var currentText = span.textContent;
+            var input = document.createElement('input');
+            input.type = 'text';
+            input.value = currentText;
+            input.className = 'editable';
+        
+            var saveButton = document.createElement('button');
+            saveButton.textContent = 'Save';
+            saveButton.className = 'save';
+            saveButton.onclick = function() {
+                span.textContent = input.value.trim();
+                span.style.display = 'inline';
+                input.remove();
+                saveButton.remove();
+                updateTaskCount();
+            };
+        
+            input.onkeypress = function(event) {
+                if (event.key === 'Enter') {
+                    saveButton.click(); // Trigger the save button click
+                }
+            };
+        
+            span.style.display = 'none';
+            li.insertBefore(input, span);
+            li.insertBefore(saveButton, span.nextSibling);
+            input.focus();
+        }
+        
+        function completeTask(li) {
+            li.classList.toggle('completed');
+            updateTaskCount();
+        }
+
+        function removeTask(li) {
+            li.parentNode.removeChild(li);
+            updateTaskCount();
+        }
+    </script>
+</body>
+</html>

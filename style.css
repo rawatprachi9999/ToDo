@@ -1,0 +1,109 @@
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('note4.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+
+.container {
+   background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+
+    width: 350px;
+   
+    text-align: center;
+    border: 2px solid rgba(174, 24, 24, 0.815);
+}
+
+h1 {
+    color: rgba(174, 24, 24, 0.815);
+    margin-bottom: 20px;
+}
+
+.input-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: calc(100% - 70px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button.add {
+    background-color: rgba(174, 24, 24, 0.815);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button.add:hover {
+    background-color: #3a00c0;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+}
+
+li span {
+    flex-grow: 1;
+    padding: 0 10px;
+}
+
+li button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+li button.edit {
+    background-color: #4a00e0;
+    color:white;
+    margin: 6px;
+    padding: 8px ;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer
+}
+
+li button.remove {
+    background-color: red;
+    color:white;
+    margin: 6px;
+    padding: 8px ;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer
+}
+
+.completed span {
+    text-decoration: line-through;
+}
